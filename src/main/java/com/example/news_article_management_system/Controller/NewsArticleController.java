@@ -58,8 +58,34 @@ public class NewsArticleController {
         return ResponseEntity.status(400).body(new ApiResponse("Not Deleted"));
     }
 
+    @PutMapping("isPub/{id}")
+    public ResponseEntity isPublished(@PathVariable String id) {
+        if(newsArticleService.publishNewsArticles(id)){
+            return ResponseEntity.status(200).body(new ApiResponse("Published"));
+        }
+        return ResponseEntity.status(400).body(new ApiResponse("Not Published"));
+    }
 
 
+@GetMapping("/news/published")
+    public ResponseEntity<NewsArticle> getPublishedNewsArticles() {
+        ArrayList<NewsArticle> newsArticles = newsArticleService.getAllPublishedNewsArticle();
+        if(newsArticles.isEmpty()){
+            return ResponseEntity.status(200).body(null);
+        }
+return ResponseEntity.status(200).body(newsArticles.get(newsArticles.size()-1));
+    }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity searchByCategory(@PathVariable String category) {
+        ArrayList<NewsArticle> searchByCaragorys = newsArticleService.searchByCategory(category);
+        if(searchByCaragorys.isEmpty()){
+            return ResponseEntity.status(400).body(null);
+
+
+        }
+        return ResponseEntity.status(200).body(searchByCaragorys);
+    }
 
 
 }

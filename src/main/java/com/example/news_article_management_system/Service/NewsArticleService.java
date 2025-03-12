@@ -47,5 +47,38 @@ public class NewsArticleService {
         return false;
     }
 
+    public boolean  publishNewsArticles(String id) {
+
+        for (int i = 0; i < newsArticles.size(); i++) {
+            if (newsArticles.get(i).getId().equals(id)){
+                newsArticles.get(i).setPublished(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ArrayList<NewsArticle> getAllPublishedNewsArticle() {
+        ArrayList<NewsArticle> newsArticles1 = new ArrayList<>();
+        for (int i = 0; i < newsArticles.size(); i++) {
+            if (newsArticles.get(i).isPublished()) {
+                newsArticles1.add(newsArticles.get(i));
+
+            }
+
+        }
+        return newsArticles1;
+    }
+    public ArrayList<NewsArticle> searchByCategory(String category) {
+        ArrayList<NewsArticle> byCatagory = new ArrayList<>();
+        for (int i = 0; i < newsArticles.size(); i++) {
+            NewsArticle newsArticle1 = newsArticles.get(i);
+            if (newsArticles.get(i).getCategory().equalsIgnoreCase(category)) {
+                byCatagory.add(newsArticle1);
+            }
+        }
+        return byCatagory;
+    }
+
 
 }
